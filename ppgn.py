@@ -1,0 +1,26 @@
+from network import Network
+
+class PPGN(Network):
+    def setup(self):
+        (self.feed('feat')
+             .fc(4096, name='defc7')
+             .fc(4096, name='defc6')
+             .fc(4096, name='defc5')
+             .reshape(name='reshape')
+             .deconv(4, 4, 256, 2, 2, relu=False, name='deconv5')
+             .relu(name='relu_deconv5')
+             .deconv(3, 3, 512, 1, 1, relu=False, name='conv5_1')
+             .relu(name='relu_conv5_1')
+             .deconv(4, 4, 256, 2, 2, relu=False, name='deconv4')
+             .relu(name='relu_deconv4')
+             .deconv(3, 3, 256, 1, 1, relu=False, name='conv4_1')
+             .relu(name='relu_conv4_1')
+             .deconv(4, 4, 128, 2, 2, padding=None, relu=False, name='deconv3')
+             .relu(name='relu_deconv3')
+             .deconv(3, 3, 128, 1, 1, relu=False, name='conv3_1')
+             .relu(name='relu_conv3_1')
+             .deconv(4, 4, 64, 2, 2, relu=False, name='deconv2')
+             .relu(name='relu_deconv2')
+             .deconv(4, 4, 32, 2, 2, relu=False, name='deconv1')
+             .relu(name='relu_deconv1')
+             .deconv(4, 4, 3, 2, 2, relu=False, name='deconv0'))
